@@ -20,7 +20,6 @@ const BookForm = () => {
         })
       )
     }
-
     setTitle('')
     setAuthor('')
   }
