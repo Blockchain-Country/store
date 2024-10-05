@@ -10,12 +10,14 @@ const BookForm = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault()
-    dispatch(
-      addBook({
-        title,
-        author,
-      })
-    )
+    if (title && author) {
+      dispatch(
+        addBook({
+          title,
+          author,
+        })
+      )
+    }
 
     setTitle('')
     setAuthor('')
