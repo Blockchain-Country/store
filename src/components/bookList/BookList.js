@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from 'react-icons/fa'
 import { FaRegStar } from 'react-icons/fa'
-import { deleteBook } from '../../redux/book/ActionCreator'
+import { deleteBook, toggleFavorite } from '../../redux/book/ActionCreator'
 import './BookList.css'
 
 const BookList = () => {
@@ -10,10 +10,14 @@ const BookList = () => {
 
   const handleDeleteBook = (id) => {
     books.forEach((book) => {
-      if (book.id === id) {
+      if (book.id === id && book.isFavorite === false) {
         dispatch(deleteBook(id))
       }
     })
+  }
+
+  const handleFavorite = (id) => {
+    dispatch(toggleFavorite(id))
   }
 
   return (
@@ -33,10 +37,16 @@ const BookList = () => {
                 <strong>{book.author}</strong>
               </div>
               <div className="book-actions">
-                <span onClick={() => {}}>
-                  <FaRegStar className="star-icon" />
+                <span onClick={() => handleFavorite(book.id)}>
+                  {book.isFavorite ? (
+                    <FaStar className="star-icon" />
+                  ) : (
+                    <FaRegStar className="star-icon" />
+                  )}
                 </span>
-                <button onClick={() => handleDeleteBook(book.id)}></button>
+                <button onClick={() => handleDeleteBook(book.id)}>
+                  Delete
+                </button>
               </div>
             </li>
           ))}
