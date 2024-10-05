@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { FaStar } from 'react-icons/fa'
+import { FaRegStar } from 'react-icons/fa'
 import { deleteBook } from '../../redux/book/ActionCreator'
 import './BookList.css'
 
@@ -30,7 +32,12 @@ const BookList = () => {
                 <span> by </span>
                 <strong>{book.author}</strong>
               </div>
-              <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
+              <div className="book-actions">
+                <span onClick={() => {}}>
+                  <FaRegStar className="star-icon" />
+                </span>
+                <button onClick={() => handleDeleteBook(book.id)}></button>
+              </div>
             </li>
           ))}
         </ul>
