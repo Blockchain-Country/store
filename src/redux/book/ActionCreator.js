@@ -1,10 +1,10 @@
 import * as actions from './ActionTypes'
 
-export const addBook = (newBook, id) => {
+export const addBook = (newBook) => {
   return {
     type: actions.ADD_BOOK,
     payload: newBook,
-    id,
+    id: newBook.id,
   }
 }
 

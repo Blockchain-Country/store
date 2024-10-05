@@ -24,7 +24,11 @@ const BookList = () => {
           {books.map((book, i) => (
             <li key={book.id} className="book-info">
               <div>
-                {++i}. {book.title} by <strong>{book.author}</strong>
+                <span>{++i}. </span>
+                <span>{book.title}</span>
+                <span>{` (${book.year})`}</span>
+                <span> by </span>
+                <strong>{book.author}</strong>
               </div>
               <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
             </li>
