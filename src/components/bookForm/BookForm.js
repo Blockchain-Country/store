@@ -52,7 +52,7 @@ const BookForm = () => {
             onChange={(e) => setTitle(e.target.value)}
             id="title"
             type="text"
-            placeholder="enter book name"
+            placeholder="book name..."
           ></input>
         </div>
         <div>
@@ -62,7 +62,7 @@ const BookForm = () => {
             onChange={(e) => setYear(e.target.value)}
             id="year"
             type="number"
-            placeholder="enter book year"
+            placeholder="book year..."
           ></input>
         </div>
         <div>
@@ -72,7 +72,7 @@ const BookForm = () => {
             onChange={(e) => setAuthor(e.target.value)}
             id="author"
             type="text"
-            placeholder="enter author name"
+            placeholder="book author..."
           ></input>
         </div>
         <button type="submit">Add Book</button>
