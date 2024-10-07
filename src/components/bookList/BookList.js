@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from 'react-icons/fa'
 import { FaRegStar } from 'react-icons/fa'
 import { deleteBook, toggleFavorite } from '../../redux/book/ActionCreator'
+import './BookList.css'
 import {
   selectTitleFilter,
   selectAuthorFilter,
   selectOnlyFavorite,
 } from '../../redux/slices/FilterSlice'
-import './BookList.css'
 
 const BookList = () => {
   const books = useSelector((state) => state.books)
@@ -37,6 +37,22 @@ const BookList = () => {
     )
   })
 
+  const highlightMatched = (text, filter) => {
+    if (!filter) return text
+
+    const regex = new RegExp(`(${filter})`, 'gi')
+    return text.split(regex).map((substring, i) => {
+      if (substring.toLowerCase() === filter.toLowerCase()) {
+        return (
+          <span key={i} className="highlight">
+            {substring}
+          </span>
+        )
+      }
+      return substring
+    })
+  }
+
   return (
     <div className="app-block book-list">
       <h2>BookList</h2>
@@ -48,10 +64,10 @@ const BookList = () => {
             <li key={book.id} className="book-info">
               <div>
                 <span>{++i}. </span>
-                <span>{book.title}</span>
+                <span>{highlightMatched(book.title, titleFilter)}</span>
                 <span>{` (${book.year})`}</span>
                 <span> by </span>
-                <strong>{book.author}</strong>
+                <strong>{highlightMatched(book.author, authorFilter)}</strong>
               </div>
               <div className="book-actions">
                 <span onClick={() => handleFavorite(book.id)}>
