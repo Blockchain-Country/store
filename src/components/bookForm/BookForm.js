@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
+import createBookWithID from '../../utils/createBookWithID'
 import { ADD_BOOK } from '../../redux/slices/BooksSlice'
 import booksJson from '../../data/books.json'
 import './BookForm.css'
@@ -13,16 +13,10 @@ const BookForm = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault()
-    if (title && year.length === 4 && author) {
-      dispatch(
-        ADD_BOOK({
-          title,
-          author,
-          year,
-          id: uuidv4(),
-          isFavorite: false,
-        })
-      )
+    const yearRegex = /^\d{4}$/
+    if (title && yearRegex.test(year) && author) {
+      const book = createBookWithID({ title, author, year })
+      dispatch(ADD_BOOK(book))
       setTitle('')
       setAuthor('')
       setYear('')
@@ -32,13 +26,7 @@ const BookForm = () => {
   const handleAddRandom = () => {
     const randomNum = Math.floor(Math.random() * booksJson.length)
     const randomBook = booksJson[randomNum]
-    dispatch(
-      ADD_BOOK({
-        ...randomBook,
-        id: uuidv4(),
-        isFavorite: false,
-      })
-    )
+    dispatch(ADD_BOOK(createBookWithID(randomBook)))
   }
 
   return (
