@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from 'react-icons/fa'
 import { FaRegStar } from 'react-icons/fa'
-import { deleteBook, toggleFavorite } from '../../redux/book/ActionCreator'
+import {
+  DELETE_BOOK,
+  TOGGLE_FAVORITE,
+  selectBooks,
+} from '../../redux/slices/BooksSlice'
 import './BookList.css'
 import {
   selectTitleFilter,
@@ -10,7 +14,7 @@ import {
 } from '../../redux/slices/FilterSlice'
 
 const BookList = () => {
-  const books = useSelector((state) => state.books)
+  const books = useSelector(selectBooks)
   const titleFilter = useSelector(selectTitleFilter)
   const authorFilter = useSelector(selectAuthorFilter)
   const onlyFavoriteFilter = useSelector(selectOnlyFavorite)
@@ -19,13 +23,13 @@ const BookList = () => {
   const handleDeleteBook = (id) => {
     books.forEach((book) => {
       if (book.id === id && book.isFavorite === false) {
-        dispatch(deleteBook(id))
+        dispatch(DELETE_BOOK(id))
       }
     })
   }
 
   const handleFavorite = (id) => {
-    dispatch(toggleFavorite(id))
+    dispatch(TOGGLE_FAVORITE(id))
   }
 
   const filteredBooks = books.filter((book) => {

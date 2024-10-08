@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
-import { addBook } from '../../redux/book/ActionCreator'
+import { ADD_BOOK } from '../../redux/slices/BooksSlice'
 import booksJson from '../../data/books.json'
 import './BookForm.css'
 
@@ -15,7 +15,7 @@ const BookForm = () => {
     e.preventDefault()
     if (title && year.length === 4 && author) {
       dispatch(
-        addBook({
+        ADD_BOOK({
           title,
           author,
           year,
@@ -33,7 +33,7 @@ const BookForm = () => {
     const randomNum = Math.floor(Math.random() * booksJson.length)
     const randomBook = booksJson[randomNum]
     dispatch(
-      addBook({
+      ADD_BOOK({
         ...randomBook,
         id: uuidv4(),
         isFavorite: false,
